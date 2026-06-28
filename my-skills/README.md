@@ -12,6 +12,7 @@ depends on. The full skills (SKILL.md + any scripts) live in my local Claude ski
 | [`watch`](#watch) | Let Claude actually watch a video (frames + transcript) and answer questions about it | `/watch <url-or-path> [question]` | [bradautomates/claude-video](https://github.com/bradautomates/claude-video) (MIT) |
 | [`prd-writer`](#prd-writer) | Turn a feature idea into a complete, Agile-ready Product Requirements Document | "write a PRD for…" | Built with skill-creator |
 | [`qa-test-plan`](#qa-test-plan) | Turn requirements / user stories into a structured, executable QA test plan | "write test cases for…" | Built with skill-creator |
+| [`pitch-deck-architect`](#pitch-deck-architect) | Architect an investor pitch narrative and produce a polished .pptx deck | "build a pitch deck for…" | Built with skill-creator |
 
 > **Tip:** `prd-writer` → `qa-test-plan` chain nicely — a PRD's Given/When/Then acceptance
 > criteria feed directly into the test-plan generator.
@@ -162,3 +163,39 @@ regression checklist.
 
 **Dependencies.** Optionally uses the bundled `xlsx` / `docx` skills for Excel/Word output.
 No external services.
+
+---
+
+## pitch-deck-architect
+
+**What it does.** Builds an investor pitch deck two ways: first it architects the *narrative* —
+the argument that makes investors lean forward — then it populates each slide and hands off to
+the `pptx` skill to produce a polished `.pptx` file. Built on the proven
+Pain → Insight → Solution → Why Now → Market → Business Model → Traction → Team → Ask arc used
+by Sequoia, YC, and most top-tier investors.
+
+**When it triggers.** When you want to create/build/structure an investor pitch, startup deck,
+seed/Series A deck, demo-day deck, or fundraising presentation; or say things like "help me
+pitch my startup", "I need a deck for investors", "create slides for my fundraise", or just
+describe your startup and mention raising money / talking to investors.
+
+**How to invoke.**
+```
+build a pitch deck for my app
+I'm raising a seed round and need an investor deck
+make demo day slides for [startup]
+```
+
+**How it works.** Asks only for what's missing (name + one-liner, stage, raise amount & use of
+funds, traction, team), then builds a 10–13 slide blueprint where each slide answers one question
+the investor is mentally asking. Runs narrative quality checks before building (does the problem
+make the solution feel inevitable? is "Why Now" urgent? is traction front-loaded?) and flags a
+structurally weak pitch rather than building it anyway. Tailors traction/financials depth and
+deck length to stage (pre-seed → Series A).
+
+**Output.** A `.pptx` file via the `pptx` skill, with clean, data-driven investor styling
+(suggested palettes, stat callouts, 2×2 positioning matrix, TAM/SAM/SOM visual, growth charts).
+Runs visual QA for overflow/placeholder text, then offers a speaker-notes version or one-page
+executive summary.
+
+**Dependencies.** Uses the bundled `pptx` skill to build the deck. No external services.
